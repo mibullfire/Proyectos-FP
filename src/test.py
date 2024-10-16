@@ -17,7 +17,7 @@ def main():
     fichero = './data/estaciones.csv'
     #test_leer_fichero(fichero)
     #test_filtra_estaciones_libres(fichero, 10)
-    test_estaciones_cercanas_a_ubicacion(fichero, punto(37.397829929383,-5.97567172039552), 2)
+    test_estaciones_cercanas_a_ubicacion(fichero, punto(37.391,-5.98), 2)
 
 if __name__ == '__main__':
     main()
