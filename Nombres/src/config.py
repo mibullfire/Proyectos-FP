@@ -1,0 +1,1 @@
+fichero = './data/frecuencias_nombres.csv'
