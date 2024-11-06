@@ -1,6 +1,7 @@
 import csv
 from collections import namedtuple
 from datetime import *
+from typing import Optional
 
 Ovni = namedtuple('Ovni', 'fechahora, ciudad, estado, forma, duracion, comentarios, latitud, longitud')
 #Coordenada = namedtuple('Coordenada', 'latitude,longitude')
@@ -45,7 +46,11 @@ def prueba(lista):
 def avistamientos_cercanos_ubicacion(lista:list, ubicacion:Cordenadas, distancia_max:float)->list:
     return [i for i in lista if distancia(Cordenadas(i.latitud, i.longitud), ubicacion) <= distancia_max]
 
+def avistamiento_mayor_duracion(lista:list, forma:Optional[str]=None)->Ovni:
+    return max([i for i in lista if (forma == None or i.forma == forma)], key = lambda x: x.duracion)
 
+
+############################################
 def duracion_maxima(lista):
     return max(lista, key=lambda x: x.duracion)
 
