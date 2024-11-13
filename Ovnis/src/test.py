@@ -51,6 +51,13 @@ def test_avistamiento_mayor_duracion(fichero, forma=None):
     print('Avistamiento con mayor duración de forma', forma)
     print(avistamiento_mayor_duracion(avistamientos, forma))
 
+def test_comentario_mas_largo(fichero):
+    avistamientos = leer_fichero(fichero)
+    print(Fore.GREEN + '\nComentario más largo')
+    print('Comentario más largo')
+    print(comentario_mas_largo(avistamientos))
+
+
 def main():
     fichero = './data/ovnis.csv'
     test_leer_fichero(fichero)
@@ -60,6 +67,7 @@ def main():
     test_duracion_maxima(fichero)
     test_avistamiento_cercano_mayor_duracion(fichero)
     test_avistamiento_mayor_duracion(fichero)
+    test_comentario_mas_largo(fichero)
     Fore.RESET
     
 if __name__ == '__main__':
