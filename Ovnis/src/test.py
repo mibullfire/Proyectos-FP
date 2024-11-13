@@ -57,6 +57,12 @@ def test_comentario_mas_largo(fichero):
     print('Comentario más largo')
     print(comentario_mas_largo(avistamientos))
 
+def test_media_dias_entre_avistamientos(fichero, año):
+    avistamientos = leer_fichero(fichero)
+    print(Fore.LIGHTMAGENTA_EX + '\nMedia de días entre avistamientos')
+    print('Media de días entre avistamientos')
+    print(media_dias_entre_avistamientos(avistamientos, año))
+
 
 def main():
     fichero = './data/ovnis.csv'
@@ -68,6 +74,7 @@ def main():
     test_avistamiento_cercano_mayor_duracion(fichero)
     test_avistamiento_mayor_duracion(fichero)
     test_comentario_mas_largo(fichero)
+    test_media_dias_entre_avistamientos(fichero, 2004)
     Fore.RESET
     
 if __name__ == '__main__':

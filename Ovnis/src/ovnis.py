@@ -63,9 +63,15 @@ def avistamientos_fechas(lista, fecha1, fecha2):
 def comentario_mas_largo(lista):
     return max(lista, key=lambda x: len(x.comentarios))
 
-def media_dias_entre_avistamientos(lista):
-    fechas = sorted([i.fechahora.date() for i in lista])
-    return sum((fechas[i] - fechas[i-1]).days for i in range(1, len(fechas))) / (len(fechas) - 1)
+def media_dias_entre_avistamientos(lista:list[Ovni], año:int)->float:
+    agua = sorted([i.fechahora.date() for i in lista if i.fechahora.year == año])
+    pares = zip(agua, agua[1:])
+    return sum((j - i).days for i, j in pares) / len(agua) - 1
+    # fechas = sorted([i.fechahora.date() for i in lista if i.fechahora.year == año])
+    # if len(fechas) < 2:
+    #     return 0.0
+    # else:
+    #     return sum((fechas[i] - fechas[i-1]).days for i in range(1, len(fechas))) / (len(fechas) - 1)
 
 def avistamientos_por_fecha(lista):
     return {i.fechahora.date(): len([j for j in lista if j.fechahora.date() == i.fechahora.date()]) for i in lista}
