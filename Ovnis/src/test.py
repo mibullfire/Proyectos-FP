@@ -47,7 +47,7 @@ def test_avistamiento_cercano_mayor_duracion(fichero):
 
 def test_avistamiento_mayor_duracion(fichero, forma=None):
     avistamientos = leer_fichero(fichero)
-    print(Fore.MAGENTA + '\nAvistamiento con mayor duración de forma',)
+    print(Fore.MAGENTA + '\nAvistamiento con mayor duración de x forma',)
     print('Avistamiento con mayor duración de forma', forma)
     print(avistamiento_mayor_duracion(avistamientos, forma))
 
