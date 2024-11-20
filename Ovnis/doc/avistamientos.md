@@ -8,7 +8,8 @@ Los datos se encuentran almacenados en un fichero en formato CSV codificado en U
 
 Estas son las primeras líneas del fichero (acortando la descripción del avistamiento). La primera línea es una cabecera que contiene los nombres de los campos del registro:
 
-```datetime,city,state,shape,duration,comments,latitude,longitude
+```csv
+datetime,city,state,shape,duration,comments,latitude,longitude
 07/04/2011 22:00,muncie,in,light,240, ((HOAX??)) 4th  of July ufo...,40.1933333,-85.3863889
 04/07/2005 17:01,deming (somewhere near),nm,changing,1200, ((NUFORC...,32.2686111,-107.7580556
 03/12/2010 19:56,erie,pa,changing,300, 3/12/10Viewed a comet like...,42.1291667,-80.0852778
@@ -17,7 +18,8 @@ Estas son las primeras líneas del fichero (acortando la descripción del avista
 
 Para almacenar estos datos en memoria, utilizaremos tuplas con nombre con la siguiente definición:
 
-```Avistamiento = namedtuple('Avistamiento', 'fechahora, ciudad, estado, forma, duracion, comentarios, latitud, longitud')
+```py
+Avistamiento = namedtuple('Avistamiento', 'fechahora, ciudad, estado, forma, duracion, comentarios, latitud, longitud')
 ```
 
 El objetivo del ejercicio es leer estos datos y realizar distintas operaciones con ellos. Cada operación se implementará en una función distinta. Use funciones auxiliares cuando lo crea conveniente para mejorar la legibilidad del código. Las funciones a implementar son:
@@ -49,7 +51,8 @@ El objetivo del ejercicio es leer estos datos y realizar distintas operaciones c
 * **numero_avistamientos_por_año**: Función que crea un diccionario que relaciona cada año con el número de avistamientos observados en dicho año. Es decir, un diccionario cuyas claves son los años y cuyos valores son el número de avistamientos observados en cada año. La función recibe una lista de namedtuple de tipo Avistamiento.
 * **num_avistamientos_por_mes**: Función que devuelve el número de avistamientos observados en cada mes del año. Usar como claves los nombres de los doce meses con la inicial en mayúsculas:
 
-```meses = ["Enero", "Febrero", "Marzo",
+```py
+meses = ["Enero", "Febrero", "Marzo",
             "Abril", "Mayo", "Junio", 
             "Julio", "Agosto", "Septiembre", 
             "Octubre", "Noviembre", "Diciembre"]

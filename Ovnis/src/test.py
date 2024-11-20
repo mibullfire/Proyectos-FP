@@ -51,11 +51,11 @@ def test_avistamiento_mayor_duracion(fichero, forma=None):
     print('Avistamiento con mayor duración de forma', forma)
     print(avistamiento_mayor_duracion(avistamientos, forma))
 
-def test_comentario_mas_largo(fichero):
+def test_comentario_mas_largo(fichero, año, palabra):
     avistamientos = leer_fichero(fichero)
     print(Fore.GREEN + '\nComentario más largo')
     print('Comentario más largo')
-    print(comentario_mas_largo(avistamientos))
+    print(comentario_mas_largo(avistamientos, año, palabra))
 
 def test_media_dias_entre_avistamientos(fichero, año):
     avistamientos = leer_fichero(fichero)
@@ -63,6 +63,29 @@ def test_media_dias_entre_avistamientos(fichero, año):
     print('Media de días entre avistamientos')
     print(media_dias_entre_avistamientos(avistamientos, año))
 
+def test_hora_mas_avistamientos(fichero):
+    avistamientos = leer_fichero(fichero)
+    print(Fore.BLUE + '\nTest Hora con más avistamientos')
+    hora, numero = hora_mas_avistamientos(avistamientos)
+    print(f'La hora con más avistamientos es {hora} con {numero} avistamientos')
+
+def test_hora_mas_avistamientos2(fichero):
+    avistamientos = leer_fichero(fichero)
+    print(Fore.BLUE + '\nTest Hora con más avistamientos 2')
+    x = hora_mas_avistamientos2(avistamientos)
+    print(x)
+
+def test_coordenadas_mas_avistamientos(fichero):
+    avistamientos = leer_fichero(fichero)
+    print(Fore.CYAN + '\nTest Coordenadas con más avistamientos')
+    x = coordenadas_mas_avistamientos(avistamientos)
+    print(x)
+
+def test_año_con_mayor_duracion_total_avistamientos(fichero):
+    avistamientos = leer_fichero(fichero)
+    print(Fore.RED + '\nTest Año con mayor duración total de avistamientos')
+    x = año_con_mayor_duracion_total_avistamientos(avistamientos)
+    print(x)
 
 def main():
     fichero = './data/ovnis.csv'
@@ -73,8 +96,12 @@ def main():
     test_duracion_maxima(fichero)
     test_avistamiento_cercano_mayor_duracion(fichero)
     test_avistamiento_mayor_duracion(fichero)
-    test_comentario_mas_largo(fichero)
+    test_comentario_mas_largo(fichero, 2000, 'lights')
     test_media_dias_entre_avistamientos(fichero, 2004)
+    test_hora_mas_avistamientos(fichero)
+    test_hora_mas_avistamientos2(fichero)
+    test_coordenadas_mas_avistamientos(fichero)
+    test_año_con_mayor_duracion_total_avistamientos(fichero)
     Fore.RESET
     
 if __name__ == '__main__':
