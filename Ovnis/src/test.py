@@ -78,52 +78,53 @@ def test_coordenada_mas_avistamientos(lista:list[Ovni])->None:
     print(Fore.LIGHTBLUE_EX + '\nCoordenada con más avistamientos')
     print(coordenadas_mas_avistamientos(lista))
 
-def test_hora_mas_avistamientos(lista):
+def test_hora_mas_avistamientos(lista:list[Ovni])->None:
     print(Fore.BLUE + '\nTest Hora con más avistamientos')
     hora, numero = hora_mas_avistamientos(lista)
     print(f'La hora con más avistamientos es {hora} con {numero} avistamientos')
 
-def test_longitud_media_comentarios_por_estado(lista):
+def test_longitud_media_comentarios_por_estado(lista:list[Ovni])->None:
     print(Fore.MAGENTA + '\ntest_longitud_media_comentarios_por_estado')
     print(longitud_media_comentarios_por_estado(lista))
 
-def test_porc_avistamientos_por_forma(lista):
+def test_porc_avistamientos_por_forma(lista:list[Ovni])->None:
     print(Fore.MAGENTA + '\ntest_porc_avistamientos_por_forma')
     print(porc_avistamientos_por_forma(lista))
 
+def test_avistamientos_mayor_duracion_por_estado(lista:list[Ovni], limite:Optional[int]=3)->None:
+    print(Fore.LIGHTGREEN_EX + '\ntest_avistamientos_mayor_duracion_por_estado')
+    print(avistamientos_mayor_duracion_por_estado(lista, limite))
 
-
-### A partir de aqui son funciones que tengo que cambiar para que funcionen con los nuevos cambios
-def test_coordenadas_mas_avistamientos(fichero):
-    avistamientos = leer_fichero(fichero)
-    print(Fore.CYAN + '\nTest Coordenadas con más avistamientos')
-    x = coordenadas_mas_avistamientos(avistamientos)
-    print(x)
-
-def test_año_con_mayor_duracion_total_avistamientos(fichero):
-    avistamientos = leer_fichero(fichero)
-    print(Fore.RED + '\nTest Año con mayor duración total de avistamientos')
-    x = año_con_mayor_duracion_total_avistamientos(avistamientos)
-    print(x)
-
-def test_numero_avistamientos_por_dia(fichero):
-    avistamientos = leer_fichero(fichero)
-    print(Fore.GREEN + '\ntest_numero_avistamientos_por_dia')
-    print(numero_avistamientos_por_dia(avistamientos))
-
-def test_año_mas_avistamientos_forma(fichero, forma):
-    avistamientos = leer_fichero(fichero)
+def test_año_mas_avistamientos_forma(lista:list[Ovni], forma:str)->None:
     print(Fore.BLUE + '\ntest_año_mas_avistamientos_forma')
-    print(año_mas_avistamientos_forma(avistamientos, forma))
+    print(año_mas_avistamientos_forma(lista, forma))
 
+def test_estado_mas_avistamientos(lista:list[Ovni], limite:Optional[int]=5)->None:
+    print(Fore.LIGHTBLUE_EX + '\ntest_estado_mas_avistamientos')
+    print(estados_mas_avistamientos(lista, limite))
 
+def test_duracion_total_avistamientos_año(lista:list[Ovni], estado:str)->None:
+    print(Fore.LIGHTCYAN_EX + '\ntest_duracion_total_avistamientos_año')
+    print(duracion_total_avistamientos_año(lista, estado))
 
-def test_estado_con_suma_top_n_duraciones_mas_larga(fichero, n):
-    avistamientos = leer_fichero(fichero)
+def test_avistamiento_mas_reciente_estado(lista:list[Ovni])->None:
+    print(Fore.LIGHTRED_EX + '\ntest_avistamiento_mas_reciente_estado')
+    print(avistamiento_mas_reciente_estado(lista))
+
+# Funciones Extras de Clases Teóricas
+def test_año_con_mayor_duracion_total_avistamientos(lista:list[Ovni])->None:
+    print(Fore.RED + '\nTest Año con mayor duración total de avistamientos')
+    x = año_con_mayor_duracion_total_avistamientos(lista)
+    print(x)
+
+def test_numero_avistamientos_por_dia(lista:list[Ovni])->None:
+    print(Fore.GREEN + '\ntest_numero_avistamientos_por_dia')
+    print(numero_avistamientos_por_dia(lista))
+
+def test_estado_con_suma_top_n_duraciones_mas_larga(lista:list[Ovni], n:int)->None:
     print(Fore.CYAN + '\ntest_estado_con_suma_top_n_duraciones_mas_larga')
-    print(estado_con_suma_top_n_duraciones_mas_larga(avistamientos, n))
+    print(estado_con_suma_top_n_duraciones_mas_larga(lista, n))
     
-
 def main():
     fichero = './data/ovnis.csv'
     # 1. Función de lectura de datos
@@ -148,17 +149,13 @@ def main():
     test_coordenada_mas_avistamientos(lista)
     test_hora_mas_avistamientos(lista)
     test_longitud_media_comentarios_por_estado(lista)
-    #test_porc_avistamientos_por_forma(lista)
+    test_porc_avistamientos_por_forma(lista)
+    test_avistamientos_mayor_duracion_por_estado(lista, 1)
+    test_año_mas_avistamientos_forma(lista, 'light')
+    test_estado_mas_avistamientos(lista)
+    test_duracion_total_avistamientos_año(lista, 'in')
+    test_avistamiento_mas_reciente_estado(lista)
 
-
-    # test_hora_mas_avistamientos(fichero)
-    # test_hora_mas_avistamientos2(fichero)
-    # test_coordenadas_mas_avistamientos(fichero)
-    # test_año_con_mayor_duracion_total_avistamientos(fichero)
-    # test_numero_avistamientos_por_dia(fichero)
-    # test_año_mas_avistamientos_forma(fichero, 'light')
-    # test_longitud_media_comentarios_por_estado(fichero)
-    # test_estado_con_suma_top_n_duraciones_mas_larga(fichero, 15)
     Fore.RESET
     
 if __name__ == '__main__':

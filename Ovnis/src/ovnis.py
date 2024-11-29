@@ -189,54 +189,68 @@ def longitud_media_comentarios_por_estado(lista:list[Ovni])->dict[str, float]:
     return {k: sum(v)/len(v) for k,v in dicc.items()}
 
 def porc_avistamientos_por_forma(lista:list[Ovni])->dict[str, float]:
-    pass
+    '''
+    Función que devuelve un diccionario en el que las claves son las formas de los avistamientos, 
+    y los valores son el porcentaje de avistamientos de cada forma con respecto al número total de avistamientos.
+    '''
+    dicc = Counter(map(lambda x: x.forma, lista))
 
-def avistamientos_mayor_duracion_por_estado(lista:list[Ovni])->dict[str, Ovni]:
-    pass
+    return {i: round(j / len(lista) *100, 3) for i, j in dicc.items()}
+
+def avistamientos_mayor_duracion_por_estado(lista:list[Ovni], limite:Optional[int]=3)->dict[str, Ovni]:
+    '''
+    Función que devuelve un diccionario que relaciona los estados con los avistamientos de mayor duración observados 
+    en dicho estado, ordenados de mayor a menor duración. Si no se indica nada, se obtendrán los tres avistamientos 
+    de mayor duración. La función recibe una lista de namedtuple de tipo Avistamiento y un valor entero que representará 
+    el límite que por defecto tendrá el valor 3.
+    '''
+    dicc = defaultdict(lambda: [])
+    for i in lista:
+        dicc[i.estado].append(i)
+    return {i: sorted(j, key = lambda x: x.duracion, reverse=True)[:limite] for i, j in dicc.items()}
 
 def año_mas_avistamientos_forma(lista:list[Ovni], forma:str)->int:
+    '''
+    Función que devuelve el año en el que se han observado más avistamientos de una forma dada. La función recibe 
+    una lista de namedtuple de tipo Avistamiento y la forma a tener en cuenta que será de tipo str.
+    '''
     lista = filter(lambda x: x.forma == forma, lista)
     contador = Counter(map(lambda x: x.fechahora.year, lista))
     return contador.most_common(1)[0][0]
 
-def estados_mas_avistamientos(lista:list[Ovni])->list[str]:
-    pass
+def estados_mas_avistamientos(lista:list[Ovni], limite:Optional[int]=3)->list[tuple[str, int]]:
+    '''
+    Función que devuelve una lista con el nombre y el número de avistamientos de los estados con mayor número 
+    de avistamientos, ordenados de mayor a menor número de avistamientos. Si no se indica nada, se obtendrán los 
+    cinco estados con más avistamientos. La función recibe una lista de namedtuple de tipo Avistamiento y un valor 
+    entero que representará el límite que por defecto tendrá el valor 3.
+    '''
+    dicc = Counter(map(lambda x: x.estado, lista))
+    lista = list(dicc.items())
+    return sorted(lista, key = lambda x: x[1], reverse = True)[:limite]
 
-def duracion_total_avistamientos_año(lista:list[Ovni], año:int)->int:
-    pass
+def duracion_total_avistamientos_año(lista:list[Ovni], estado:str)->dict[int, int]:
+    '''
+    Función que devuelve un diccionario que relaciona cada año con la suma de las duraciones de todos los avistamientos 
+    observados durante ese año en un estado dado. La función recibe una lista de namedtuple de tipo Avistamiento y 
+    el estado a tener en cuenta que será de tipo str.
+    '''
+    dicc = defaultdict(lambda: [])
+    filtro = filter(lambda x: x.estado == estado, lista)
+    for i in filtro:
+            dicc[i.fechahora.year].append(i.duracion)
+    return {i: sum(j) for i, j in dicc.items()}
 
-def avistamiento_mas_reciente_estado(lista:list[Ovni], estado:str)->Ovni:
-    pass
+def avistamiento_mas_reciente_estado(lista:list[Ovni])->dict[str, datetime]:
+    '''
+    Función que devuelve un diccionario que relaciona cada estado con la fecha del último avistamiento observado en el estado.
+    '''
+    dicc = defaultdict(lambda: [])
+    for i in lista:
+        dicc[i.estado].append(i.fechahora)
+    return {i: max(j) for i, j in dicc.items()}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Funciones extras que no estan en el md:
-
+# Funciones Extras de Clases Teóricas
 def año_con_mayor_duracion_total_avistamientos(lista:list[Ovni])->int:
     dicc = defaultdict(lambda: 0)
     for i in lista:
