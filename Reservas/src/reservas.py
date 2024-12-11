@@ -2,6 +2,7 @@ from typing import NamedTuple, List
 from datetime import date, datetime
 import csv
 from typing import *
+from collections import defaultdict
 
 Reserva = NamedTuple("Reserva",
     [("nombre", str),
@@ -39,7 +40,15 @@ def total_facturado(reservas: List[Reserva], fecha_ini: Optional[date] = None, f
     return sum([i.precio_noche * total_dias(i.fecha_entrada, i.fecha_salida) for i in reservas if (fecha_ini == None or i.fecha_entrada >= fecha_ini) and (fecha_fin == None or i.fecha_salida <= fecha_fin)])
 
 def reservas_mas_largas(reservas:List[Reserva],n:int = 3) -> List[Tuple[str, date]]:
-    pass
+    reservas = sorted(reservas, key = lambda x: total_dias(x.fecha_entrada, x.fecha_salida), reverse=True)
+    return [(i.nombre, i.fecha_entrada) for i in reservas][:n]
 
 def cliente_mayor_facturacion(reservas: List[Reserva], servicios: Optional[Set[str]] = None) -> Tuple[str, float]:
-    pass
+    diccionario = defaultdict(float)
+    for i in reservas:
+        if servicios is None or any(servicio in i.servicios_adicionales for servicio in servicios):
+            diccionario[i.dni] += i.precio_noche * total_dias(i.fecha_entrada, i.fecha_salida)
+    if diccionario:
+        return max(diccionario.items(), key=lambda x: x[1])
+    else:
+        return ("", 0.0)
