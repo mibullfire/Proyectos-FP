@@ -2,6 +2,7 @@ from typing import NamedTuple,List,Set,Tuple,Dict,Optional
 from datetime import datetime,date
 import csv
 from collections import Counter, defaultdict
+import statistics
 
 Commit = NamedTuple("Commit",
     [("id", str), # Identificador alfanumérico del commit
@@ -76,8 +77,26 @@ def recomendar_lenguajes(repositorios:List[Repositorio], repositorio:Repositorio
     return res
 
 # Ejercicio 5
-def media_minutos_entre_commits(lista_commits: List[Commit]) -> float:
-    for i in lista_commits:
-        pass
+def media_minutos_entre_commits(commits: List[Commit]) -> float:
+    media = None
+    commits_ord = sorted(commits, key=lambda c: c.fecha_hora)
+    res = []
+    for c1, c2 in zip(commits_ord, commits_ord[1:]):
+        dif = (c2.fecha_hora - c1.fecha_hora).total_seconds() / 60
+        res.append(dif)
+    if len(res) > 0:
+        media = statistics.mean(res)
+    return media
+
 def media_minutos_entre_commits_por_usuario (repositorios:List[Repositorio],fecha_ini:Optional[date]=None,fecha_fin:Optional[date]=None)->Dict[str, float]:
-    pass
+    dicc = defaultdict(list)
+    res = defaultdict(float)
+
+    for i in repositorios:
+        if i.commits and (fecha_ini is None or i.commits[0].fecha_hora >= fecha_ini) and (fecha_fin is None or i.commits[-1].fecha_hora <= fecha_fin):
+            dicc[i.propietario].append(media_minutos_entre_commits(i.commits))
+    for i, j in dicc.items():
+        if None in j:
+            j.remove(None)
+        else: res[i] = sum(j)/len(j)
+    return res
