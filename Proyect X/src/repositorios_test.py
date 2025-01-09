@@ -34,7 +34,7 @@ def main()->None:
     test_n_mejores_repos_por_tasa_crecimiento(repositorios, 3)
     test_recomendar_lenguajes(repositorios, repositorios[0])
     test_media_minutos_entre_commits_por_usuario(repositorios)
-
+    Fore.RESET
 
 if __name__ == "__main__":
     main()
