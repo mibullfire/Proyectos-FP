@@ -89,14 +89,14 @@ def media_minutos_entre_commits(commits: List[Commit]) -> float:
     return media
 
 def media_minutos_entre_commits_por_usuario (repositorios:List[Repositorio],fecha_ini:Optional[date]=None,fecha_fin:Optional[date]=None)->Dict[str, float]:
-    dicc = defaultdict(list)
-    res = defaultdict(float)
+    dicc = defaultdict(list) # Diccionario auxiliar
+    res = defaultdict(float) # Respuesta
 
     for i in repositorios:
         if i.commits and (fecha_ini is None or i.commits[0].fecha_hora >= fecha_ini) and (fecha_fin is None or i.commits[-1].fecha_hora <= fecha_fin):
-            dicc[i.propietario].append(media_minutos_entre_commits(i.commits))
+            dicc[i.propietario].extend(k for k in i.commits) # Con este diccionario auxilar damos a cada propietario una lista con todos los commits que ha hecho
     for i, j in dicc.items():
         if None in j:
             j.remove(None)
-        else: res[i] = sum(j)/len(j)
+        else: res[i] = media_minutos_entre_commits(j) # Procesamos los commits de cada propietario con la función auxiliar para calcular la media
     return res
