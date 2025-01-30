@@ -82,7 +82,7 @@ def busca_cambios_beneficiosos(facturas: List[Factura]) -> List[Tuple[str, int, 
     for i in facturas:
         aux_dicc[i.id_vivienda] = (compara_importe_tipos_factura(facturas, i.id_vivienda))
     
-    res = list(aux_dicc.values())
+    res = {}
 
     return res
 
